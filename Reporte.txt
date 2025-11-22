@@ -1,0 +1,22 @@
+Resumen del flujo (1–2 párrafos):
+Entrenamos un detector YOLOv8 (inicio desde yolov8n/s según recursos) sobre el dataset Roboflow de Rock-Paper-Scissors. Los datos se particionaron con una estrategia reproducible (seed=42) en 80% train, 10% val, 10% test — se cuidó el estratificado por clase dominante para evitar desbalance por split. El pipeline incluye preprocesamiento y augmentations (flip, color jitter, random crop). Para la API, pactamos devolver por imagen la detección con mayor confianza y considerar confidence < 0.4 -> "undecided", siguiendo la especificación.
+
+Configuración de experimentos y decisión final:
+Se probó un grid pequeño en lr ∈ {0.01,0.001}, batch ∈ {8,16}, imgsz ∈ {320,640}, epochs 30. La selección final se basó en mAP50 y estabilidad de la curva de loss. En empate, se prefirió la configuración con menor imgsz y batch que reduce latencia para cumplir la restricción de respuesta (<500 ms) de la API.
+
+Métricas y visualizaciones:
+Incluí scripts para trazar train_loss, val_loss, mAP50 por época y para generar la matriz de confusión sobre el set de test. Reportar los plots en el notebook junto al mejor checkpoint.
+
+Análisis de errores y limitaciones:
+
+Limitaciones: dataset relativamente pequeño y variabilidad de fondo/iluminación; la detección puede fallar en manos muy pequeñas u ocluidas.
+
+Errores típicos: confusión entre Tijera y Papel cuando la mano está parcialmente cerrada; falsos negativos por baja confianza.
+
+Mitigación: augmentations, recolectar más imágenes de edge-cases, aplicar heurísticas de filtrado por bbox y/o aumentar resolución de recorte.
+
+Conclusiones y trabajo futuro (breve):
+
+Con la configuración seleccionada se obtiene un detector utilizable para la API, pero para producción recomiendo aumentar el set de test con ejemplos reales (usuarios) y añadir monitoreo de latencia y tasa de undecided.
+
+Trabajo futuro: calibración de confianza (recalibration), modelo ensemble ligero (p. ej. n + s), y pipeline de re-entrenamiento continuo con ejemplos reales mal clasificados.
