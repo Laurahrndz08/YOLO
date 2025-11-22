@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Models
+models/*.pt
+models/*.onnx
+models/*.engine
+models/*.torchscript
+
+# Notebooks
+*.ipynb_checkpoints/
+
+# System
+.DS_Store
+
+# Virtual envs
+venv/
+.env/
