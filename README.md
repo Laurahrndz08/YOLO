@@ -1,47 +1,71 @@
 # YOLO - Combate de papel, tijera y piedra
 
-
-# rock-paper-scissors-eval  
-Modelo de detección para gestos de **piedra, papel y tijera** utilizando **YOLOv8**.  
-Este repositorio contiene el código, pesos, scripts, API y proceso completo de entrenamiento basado en el dataset descargado desde Roboflow.  
-Toda la documentación está orientada a reproducibilidad técnica.
+Modelo YOLOv8 para detección de gestos de piedra, papel y tijera. Este repositorio documenta el proceso de entrenamiento, evaluación y uso del modelo, utilizando un dataset descargado desde Roboflow. El objetivo es asegurar reproducibilidad con un flujo técnico claro.
 
 ---
 
-## 1. Descripción general  
-El objetivo del proyecto es entrenar un modelo YOLOv8 capaz de detectar las siguientes clases:
+## 1. Descripción general
+Este proyecto entrena un modelo YOLOv8 para detectar tres clases correspondientes a los gestos del juego piedra–papel–tijera:
 
-- **rock**  
-- **paper**  
-- **scissors**
+- rock
+- paper
+- scissors
 
-El modelo fue entrenado con GPU T4 en Google Colab utilizando el modelo base **yolov8n.pt**.
+El modelo fue entrenado en un ambiente con GPU y configuraciones estándar de YOLOv8 para tareas de detección.
 
 ---
 
-## 2. Dataset  
-- **Proveedor:** Roboflow  
-- **URL:** https://universe.roboflow.com/roboflow-58fyf//rock-paper-scissors-sxsw  
-- **Total de imágenes:** 3,129  
-- **Clases:** rock, paper, scissors  
-- **Formato:** YOLO  
-- **Obtención:** Descargado directamente desde Roboflow sin modificaciones adicionales.
+## 2. Dataset
+- Proveedor: Roboflow
+- URL: https://universe.roboflow.com/roboflow-58fyf//rock-paper-scissors-sxsw
+- Total de imágenes: 3,129
+- Formato de anotaciones: YOLO
+- Clases etiquetadas:
+  - rock
+  - paper
+  - scissors
+- Procedencia: Dataset descargado directamente sin modificaciones adicionales.
 
-Código real usado para descarga:
+---
 
-```python
-from roboflow import Roboflow
-rf = Roboflow(api_key="TU_API_KEY")
-project = rf.workspace("roboflow-58fyf").project("rock-paper-scissors-sxsw")
-dataset = project.version(3).download("yolov8")
+## 3. Ambiente de entrenamiento
+- Plataforma: Google Colab
+- Hardware: GPU NVIDIA T4
+- Framework: Ultralytics YOLOv8
+- Lenguaje: Python 3.x
+
+---
+
+## 4. Configuración del entrenamiento
+- Epochs: 30
+- Tamaño de imagen: 640
+- Aumentación: configuración predeterminada de YOLOv8
+- Modelo base: yolov8n.pt
+
+### Comando utilizado
 ```
-## 5. Configuración del entrenamiento
-Resultados luego del entrenamiento
+rock-paper-scissors-eval/
+│
+├── models/ # Pesos del modelo (best.pt, last.pt)
+├── notebooks/ # Notebooks de entrenamiento
+├── src/ # Scripts principales
+│ ├── train.py
+│ ├── detect.py
+│ ├── utils.py
+│ └── requirements.txt
+├── data.yaml
+└── README.md
 
-| Clase    | Imágenes | Instancias | P     | R     | mAP50 | mAP50-95 |
-| -------- | -------- | ---------- | ----- | ----- | ----- | -------- |
-| all      | 604      | 418        | 0.939 | 0.927 | 0.961 | 0.763    |
-| Paper    | 139      | 146        | 0.951 | 0.929 | 0.963 | 0.776    |
-| Rock     | 128      | 150        | 0.940 | 0.934 | 0.960 | 0.736    |
-| Scissors | 118      | 122        | 0.926 | 0.919 | 0.961 | 0.778    |
+```
 
+---
+
+## 7. Uso del modelo
+### Detección (inferencia)
+yolo detect predict model=models/best.pt source="ruta/a/imagen_o_carpeta"
+
+
+---
+
+## 8. Licencia
+Este repositorio puede utilizarse libremente para fines educativos, y evaluación técnica.
