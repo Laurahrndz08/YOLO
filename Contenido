@@ -1,19 +1,21 @@
-YOLO - COMBATE/
+rock-paper-scissors-eval/
 │
-├── README.md
-├── requirements.txt
-│
-├── weights/
+├── models/
 │   ├── best.pt
 │   └── last.pt
 │
 ├── src/
-│   ├── train/
-│   │   └── train.py
-│   ├── inference/
-│   │   └── detect.py
-│   └── app/
-│       ├── api.py
-│       └── utils.py
+│   ├── main.py
+│   ├── detection.py
+│   ├── train_yolo.py
+│   ├── export_model.py
+│   ├── utils.py
+│   └── requirements.txt
 │
-└── Dockerfile
+├── notebooks/
+│   └── Modelo_yolo.ipynb
+│
+├── Dockerfile
+├── data.yaml
+├── .gitignore
+└── README.md
