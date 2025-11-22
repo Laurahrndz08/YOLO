@@ -1,0 +1,19 @@
+YOLO - COMBATE/
+│
+├── README.md
+├── requirements.txt
+│
+├── weights/
+│   ├── best.pt
+│   └── last.pt
+│
+├── src/
+│   ├── train/
+│   │   └── train.py
+│   ├── inference/
+│   │   └── detect.py
+│   └── app/
+│       ├── api.py
+│       └── utils.py
+│
+└── Dockerfile
