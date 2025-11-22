@@ -1,0 +1,16 @@
+📁 Ruta raíz del dataset (ajústala si usas rutas absolutas)
+path: ./datasets/rps_dataset
+
+# 🧪 Divisiones del dataset
+train: images/train
+val: images/val
+test: images/test
+
+# 🏷️ Clases
+names:
+  0: rock
+  1: paper
+  2: scissors
+
+# 🔢 Número total de clases
+nc: 3
